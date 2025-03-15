@@ -12,8 +12,6 @@ def masukkan_matriks(baris, kolom):
         matriks.append(baris_matriks)
     return np.array(matriks)
 
-
-
 # Fungsi untuk mengecek apakah matriks simetris (graf tidak berarah)
 def is_symmetric(matrix, n):
     for i in range(n):
@@ -22,7 +20,6 @@ def is_symmetric(matrix, n):
                 return False
     return True
 
-
 # Meminta jumlah baris dan kolom dari pengguna
 baris = int(input("Masukkan jumlah baris: "))
 kolom = int(input("Masukkan jumlah kolom: "))
@@ -30,7 +27,7 @@ kolom = int(input("Masukkan jumlah kolom: "))
 # Memasukkan matriks dari pengguna
 matriks = masukkan_matriks(baris, kolom)
 
-# Jika input valid, tampilkan matriks dan cek keterhubungan
+# Jika input valid, tampilkan matriks dan cek GRAF BERARAH atau TIDAK BERARAH
 if matriks is not None:
     print("\nMatriks yang Anda masukkan:")
     print(matriks)
