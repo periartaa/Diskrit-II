@@ -37,6 +37,6 @@ if matriks is not None:
 
     # Cek apakah graf berarah atau tidak
     if is_symmetric(matriks, baris):
-        print("\n✅ Graf adalah GRAF TIDAK BERARAH.")
+        print("\n Graf adalah GRAF TIDAK BERARAH.")
     else:
-        print("\n🔄 Graf adalah GRAF BERARAH.")
+        print("\n Graf adalah GRAF BERARAH.")
