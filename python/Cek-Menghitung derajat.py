@@ -12,27 +12,25 @@ def masukkan_matriks(baris, kolom):
         matriks.append(baris_matriks)
     return np.array(matriks)
 
-# Fungsi untuk menghitung derajat vertex dalam graf
-def hitung_derajat(matriks):
-    if matriks.shape[0] != matriks.shape[1]:  # Mengecek apakah matriks persegi (graf)
-        print("\nMatriks bukan adjacency matrix yang valid untuk graf!")
-        return
-    
-    print("\nDerajat tiap vertex:")
-    
-    # Untuk graf tidak berarah (jumlah 1 dalam satu baris)
-    if np.array_equal(matriks, matriks.T):  
-        derajat = np.sum(matriks, axis=1)
-        for i, d in enumerate(derajat):
-            print(f"Vertex {i+1}: {d}")
-    
-    # Untuk graf berarah (hitung derajat masuk dan keluar)
+# Fungsi untuk mengecek apakah matriks simetris (graf tidak berarah)
+def is_symmetric(matrix, n):
+    for i in range(n):
+        for j in range(n):
+            if matrix[i][j] != matrix[j][i]:  # Bandingkan elemen dengan transposenya
+                return False
+    return True
+
+# Fungsi untuk menghitung derajat vertex
+def hitung_derajat(matrix, n, berarah):
+    if berarah:
+        in_degree = np.sum(matrix, axis=0)  # Jumlah kolom (derajat masuk)
+        out_degree = np.sum(matrix, axis=1) # Jumlah baris (derajat keluar)
+        for i in range(n):
+            print(f"Vertex {i+1}: In-degree = {in_degree[i]}, Out-degree = {out_degree[i]}")
     else:
-        derajat_masuk = np.sum(matriks, axis=0)  # Jumlah kolom (derajat masuk)
-        derajat_keluar = np.sum(matriks, axis=1) # Jumlah baris (derajat keluar)
-        
-        for i in range(len(matriks)):
-            print(f"Vertex {i+1}: Derajat Masuk = {derajat_masuk[i]}, Derajat Keluar = {derajat_keluar[i]}")
+        degree = np.sum(matrix, axis=1)  # Jumlah baris (karena simetris, baris dan kolom sama)
+        for i in range(n):
+            print(f"Vertex {i+1}: Degree = {degree[i]}")
 
 # Meminta jumlah baris dan kolom dari pengguna
 baris = int(input("Masukkan jumlah baris: "))
@@ -41,9 +39,15 @@ kolom = int(input("Masukkan jumlah kolom: "))
 # Memasukkan matriks dari pengguna
 matriks = masukkan_matriks(baris, kolom)
 
-# Menampilkan matriks yang dimasukkan
-print("\nMatriks yang Anda masukkan:")
-print(matriks)
+# Jika input valid, tampilkan matriks dan cek jenis graf
+if matriks is not None:
+    print("\nMatriks yang Anda masukkan:")
+    print(matriks)
 
-#Menghitung derajat vertex
-hitung_derajat(matriks)
+    # Cek apakah graf berarah atau tidak
+    if is_symmetric(matriks, baris):
+        print("\nGraf adalah GRAF TIDAK BERARAH.")
+        hitung_derajat(matriks, baris, berarah=False)
+    else:
+        print("\nGraf adalah GRAF BERARAH.")
+        hitung_derajat(matriks, baris, berarah=True)
