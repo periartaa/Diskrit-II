@@ -23,7 +23,7 @@ matriks = masukkan_matriks(baris, kolom)
 print("\nMatriks yang Anda masukkan:")
 print(matriks)
 
-# Cek apakah graf terhubung menggunakan BFS
+# Cek apakah graf terhubung menggunakan perulangan for
 jumlah_simpul = len(matriks)
 dikunjungi = [False] * jumlah_simpul  # Menandai simpul yang sudah dikunjungi
 
