@@ -23,7 +23,7 @@ matriks = masukkan_matriks(baris, kolom)
 print("\nMatriks yang Anda masukkan:")
 print(matriks)
 
-# Cek apakah graf terhubung menggunakan perulangan for
+# Cek apakah graf terhubung menggunakan BFS
 jumlah_simpul = len(matriks)
 dikunjungi = [False] * jumlah_simpul  # Menandai simpul yang sudah dikunjungi
 
@@ -44,30 +44,14 @@ if all(dikunjungi):
 else:
     print("\nGraf TIDAK TERHUBUNG")
 
-# Fungsi untuk mengecek loop menggunakan DFS
-def cek_loop_dfs(matriks, simpul, dikunjungi, parent):
-    dikunjungi[simpul] = True
-    for i in range(len(matriks)):
-        if matriks[simpul][i] == 1:
-            if not dikunjungi[i]:
-                if cek_loop_dfs(matriks, i, dikunjungi, simpul):
-                    return True
-            elif parent != i:
-                return True
-    return False
-
-# Fungsi untuk mengecek apakah ada loop dalam graf
-def cek_loop(matriks):
-    jumlah_simpul = len(matriks)
-    dikunjungi = [False] * jumlah_simpul
-    for simpul in range(jumlah_simpul):
-        if not dikunjungi[simpul]:
-            if cek_loop_dfs(matriks, simpul, dikunjungi, -1):
-                return True
-    return False
-
 # Cek apakah ada loop dalam graf
-if cek_loop(matriks):
-    print("\nGraf memiliki loop")
+loop_simpul = []
+for i in range(jumlah_simpul):
+    if matriks[i][i] == 1:  # Jika ada elemen diagonal bernilai 1
+        loop_simpul.append(i + 1)  # Simpan simpul dengan loop (1-based index)
+
+# Menampilkan hasil loop
+if loop_simpul:
+    print(f"\nGraf memiliki loop pada simpul: {', '.join(map(str, loop_simpul))}")
 else:
-    print("\nGraf tidak memiliki loop")
+    print("\nGraf TIDAK memiliki loop")
